@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../lib/bootstrap.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Binbin-Task4</h1>
+            <p>此task主要使用到了三个DOM操作方法，insertBefore,appendChild,removeChild</p>
+            <p>1.insertBefore作用于父节点，参数为要插入的DOM和Before于谁的DOM</p>
+            <p>2.appendChild作用与父节点，参数为要插入的DOM，自动插到最后</p>
+            <p>3.removeChild作用与父节点，参数为要删除的DOM</p>
+        </div>
+        <form id="number_form">
+            <div class="form-group">
+                <label for="exampleInputEmail1">这里输些数字</label>
+                <input type="number" class="form-control" id="numbers" placeholder="number">
+            </div>
+            <div onclick="left_in()" class="btn btn-default">Left in</div>
+            <div onclick="right_in()" class="btn btn-default">Right in</div>
+            <div onclick="left_out()" class="btn btn-default">Left out</div>
+            <div onclick="right_out()" class="btn btn-default">Right out</div>
+        </form>
+        <p>
+            <pre id="list"></pre>
+        </p>
+    </div>
+</body>
+<script>
+    function left_in() {
+        var numbers = document.getElementById("numbers").value;
+        var list = document.getElementById("list");
+        var msg = document.createElement("p");
+        msg.id = "msg";
+        if (numbers == "") {
+            msg.innerHTML = "input不能为空";
+            msg.style.color = "red";
+            if (document.getElementById("msg") == null)
+                document.getElementById("number_form").appendChild(msg);
+        } else {
+            if (document.getElementById("msg") != null)
+                document.getElementById("number_form").removeChild(document.getElementById("msg"));
+            var block = document.createElement("span");
+            block.className = "btn btn-default";
+            block.innerHTML = numbers;
+            list.insertBefore(block, list.firstChild);
+        }
+    }
+
+    function right_in() {
+        var numbers = document.getElementById("numbers").value;
+        var list = document.getElementById("list");
+        var msg = document.createElement("p");
+        msg.id = "msg";
+        if (numbers == "") {
+            msg.innerHTML = "input不能为空";
+            msg.style.color = "red";
+            if (document.getElementById("msg") == null)
+                document.getElementById("number_form").appendChild(msg);
+        } else {
+            if (document.getElementById("msg") != null)
+                document.getElementById("number_form").removeChild(document.getElementById("msg"));
+            var block = document.createElement("span");
+            block.className = "btn btn-default";
+            block.innerHTML = numbers;
+            document.getElementById("list").appendChild(block);
+        }
+    }
+
+    function left_out() {
+        var list = document.getElementById("list");
+        var firstNode = list.firstChild;
+        if (firstNode != null)
+            list.removeChild(firstNode);
+    }
+
+    function right_out() {
+        var list = document.getElementById("list");
+        var lastNode = list.lastChild;
+        if (lastNode != null)
+            list.removeChild(lastNode);
+    }
+</script>
+
+</html>
